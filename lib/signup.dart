@@ -1,8 +1,33 @@
 import 'package:ecommerce_app/Signup_success.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Signup extends StatelessWidget {
-  const Signup({super.key});
+  Signup({super.key});
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  signup(context) async {
+    try {
+      final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      print('account created');
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => SignupSuccess()));
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +82,7 @@ class Signup extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: TextField(
+              controller: emailController,
               decoration: InputDecoration(
                 labelText: 'Email',
                 labelStyle: TextStyle(
@@ -76,6 +102,7 @@ class Signup extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: TextField(
+              controller: passwordController,
               decoration: InputDecoration(
                 labelText: 'Password',
                 labelStyle: TextStyle(
@@ -116,8 +143,7 @@ class Signup extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             child: ElevatedButton(
               onPressed: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => SignupSuccess()));
+                signup(context);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,

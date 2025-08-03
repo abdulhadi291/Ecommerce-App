@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/home.dart';
 import 'package:flutter/material.dart';
 
 class SignupSuccess extends StatelessWidget {
@@ -21,26 +22,38 @@ class SignupSuccess extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18,
                 )),
+            SizedBox(height: 200),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomeScreen()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(28, 0, 28, 0),
+                  child: Text(
+                    'Start Shopping',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
-        ),
-      ),
-      floatingActionButton: ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.blue,
-          padding: EdgeInsets.symmetric(vertical: 15),
-          elevation: 3,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-        ),
-        child: Text(
-          'Sign Up',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
         ),
       ),
     );

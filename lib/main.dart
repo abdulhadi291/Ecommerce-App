@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/firebase_options.dart';
 import 'package:ecommerce_app/home.dart';
 import 'package:ecommerce_app/splashscreen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: Splashscreen(),
     );
   }
 }
